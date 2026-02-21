@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@import url('https://fonts.cdnfonts.com/css/opening-hours-sans');
+
+body {
+  font-family: 'Opening Hours Sans', sans-serif;
+  font-size: 10.7pt;
+  background-color: #f7f7f7;
+}
+
+
+details {
+  background-color:;
+  
+}
+
+
+.name { margin-left: 20px; }
+.web { margin-left: 200px; }
+.about { margin-left: 500px; }
+.contact { margin-left: 30px; }
+
+
+summary {
+  list-style: none;
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+@media screen and (max-width: 704px) {
+  
+}
