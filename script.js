@@ -79,3 +79,116 @@ document.addEventListener("DOMContentLoaded", () => {
   updateNavOpacity();
 });
 
+
+
+// ===== 여기부터 footer 토글 전용 코드 =====
+document.addEventListener("DOMContentLoaded", () => {
+  const footer = document.querySelector(".footer");
+  const name11 = document.querySelector(".name11");
+  const fullscreenBg = document.querySelector(".fullscreen-bg");
+
+  const faceImg = document.querySelector(".tip-img6");
+  const tearImg = document.querySelector(".tip-img7");
+
+  const stroke1 = document.querySelector(".tip-img");
+  const stroke2 = document.querySelector(".tip-img2");
+  const stroke3 = document.querySelector(".tip-img3");
+  const stroke4 = document.querySelector(".tip-img4");
+  const stroke5 = document.querySelector(".tip-img5");
+
+  if (
+    !footer || !name11 || !fullscreenBg ||
+    !faceImg || !tearImg ||
+    !stroke1 || !stroke2 || !stroke3 || !stroke4 || !stroke5
+  ) {
+    return;
+  }
+
+  let footerActive = false;
+
+  // 원래 상태 저장
+  const originalBodyColor = getComputedStyle(document.body).color;
+  const originalBgImage = getComputedStyle(fullscreenBg).backgroundImage;
+
+  const originalFaceSrc = faceImg.getAttribute("src");
+  const originalTearSrc = tearImg.getAttribute("src");
+
+  const originalStroke1 = stroke1.getAttribute("src");
+  const originalStroke2 = stroke2.getAttribute("src");
+  const originalStroke3 = stroke3.getAttribute("src");
+  const originalStroke4 = stroke4.getAttribute("src");
+  const originalStroke5 = stroke5.getAttribute("src");
+
+  // footer 클릭: 폰트 + 이미지 + body 클래스 토글
+  footer.addEventListener("click", () => {
+    footerActive = !footerActive;
+
+    if (footerActive) {
+      // 1) 전체 폰트색 보라
+      document.body.style.color = "#7120e5";
+      document.querySelectorAll("*").forEach(el => {
+        el.style.color = "#7120e5";
+      });
+
+      // 2) face / tear 교체
+      faceImg.src = "img/face2.png";
+      tearImg.src = "img/tear2.png";
+
+      // 3) stroke 이미지들 교체
+      stroke1.src = "img/stroke12.png";
+      stroke2.src = "img/stroke22.png";
+      stroke3.src = "img/stroke32.png";
+      stroke4.src = "img/stroke42.png";
+      stroke5.src = "img/stroke52.png";
+
+      // 4) ::after 이미지들은 body에 클래스만 추가해서 CSS로 처리
+      document.body.classList.add("crayon-on");
+
+    } else {
+      // 1) 폰트색 원래대로
+      document.body.style.color = originalBodyColor;
+      document.querySelectorAll("*").forEach(el => {
+        el.style.color = "";
+      });
+
+      // 2) face / tear 원복
+      faceImg.src = originalFaceSrc;
+      tearImg.src = originalTearSrc;
+
+      // 3) stroke 원복
+      stroke1.src = originalStroke1;
+      stroke2.src = originalStroke2;
+      stroke3.src = originalStroke3;
+      stroke4.src = originalStroke4;
+      stroke5.src = originalStroke5;
+
+      // 4) ::after 이미지용 클래스 제거 → CSS 기본값으로 복귀
+      document.body.classList.remove("crayon-on");
+
+      // 5) 배경 초기화
+      fullscreenBg.style.opacity = "0";
+      fullscreenBg.style.backgroundImage = "none";
+    }
+  });
+
+  // name11 hover 시 배경
+  name11.addEventListener("mouseenter", () => {
+    fullscreenBg.style.opacity = "1";
+
+    if (footerActive) {
+      fullscreenBg.style.backgroundImage = 'url("img/back2.png")';
+    } else {
+      fullscreenBg.style.backgroundImage =
+        originalBgImage && originalBgImage !== "none"
+          ? originalBgImage
+          : 'url("img/back.png")';
+    }
+  });
+
+  name11.addEventListener("mouseleave", () => {
+    fullscreenBg.style.opacity = "0";
+    fullscreenBg.style.backgroundImage = "none";
+  });
+});
+
+

@@ -436,7 +436,7 @@ nav > div { transition: opacity 0.25s ease; }
 
 
 .footer {
-  position: fixed;
+  position:absolute;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -444,11 +444,27 @@ nav > div { transition: opacity 0.25s ease; }
   
   color: black;
   text-align: center;
-  font-size: 8pt;
+  font-size: 8.3pt;
   font-family: 'Monor', monospace; 
 
 }
 
+/* footer 눌렀을 때 이미지 교체용 클래스 */
+body.crayon-on .lee::after {
+  background-image: url("img/one12.png");
+}
+
+body.crayon-on .about2::after {
+  background-image: url("img/one22.png");
+}
+
+body.crayon-on .web2::after {
+  background-image: url("img/one72.png");
+}
+
+body.crayon-on .contact2::after {
+  background-image: url("img/one62.png");
+}
 
 @media screen and (max-width: 704px) {
   
