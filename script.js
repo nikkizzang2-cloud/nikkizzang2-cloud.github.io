@@ -79,7 +79,17 @@ document.addEventListener("DOMContentLoaded", () => {
   updateNavOpacity();
 });
 
+const berlin = document.querySelector('.berlin');
+const bg = document.querySelector('.fullscreen-bg');
 
+berlin.addEventListener('mouseenter', () => {
+  bg.style.opacity = '1';
+  bg.style.backgroundImage = 'url("img/frame.png")';
+});
+
+berlin.addEventListener('mouseleave', () => {
+  bg.style.opacity = '0';
+});
 
 // ===== 여기부터 footer 토글 전용 코드 =====
 document.addEventListener("DOMContentLoaded", () => {
@@ -190,5 +200,9 @@ document.addEventListener("DOMContentLoaded", () => {
     fullscreenBg.style.backgroundImage = "none";
   });
 });
+
+
+
+
 
 

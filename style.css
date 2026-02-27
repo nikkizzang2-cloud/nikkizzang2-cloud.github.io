@@ -324,11 +324,7 @@ nav { position: relative; z-index: 3; }
   background-image: none;
 }
 
-/* berlin */
-body:has(.berlin:hover) .fullscreen-bg{
-  opacity: 1;
-  background-image: url("img/frame.png");
-}
+
 
 /* name11 */
 body:has(.name11:hover) .fullscreen-bg{
