@@ -1,41 +1,453 @@
+@font-face {
+  font-family: 'Monor';
+  src: url('font/Monor_Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Opening Hours Sans';
+  src: url('font/OpeningHoursSans-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-@import url('https://fonts.cdnfonts.com/css/opening-hours-sans');
-
 body {
   font-family: 'Opening Hours Sans', sans-serif;
   font-size: 10.7pt;
   background-color: #f7f7f7;
-}
-
-
-details {
-  background-color:;
   
 }
 
 
-.name { margin-left: 20px; }
-.web { margin-left: 200px; }
-.about { margin-left: 500px; }
-.contact { margin-left: 30px; }
+.name11{ margin-left: 26px;
+  margin-top: 37px;
+  font-size: 16pt;
 
-
-summary {
-  list-style: none;
 }
 
+
+
+nav {
+  margin-top: 424px;
+   
+ }
+
+nav > div {
+  position: absolute;
+  width: 25%;
+}
+.name{left: 5%;}
+
+.web {left: 30%}
+
+.about {left: 60%;}
+
+.contact{left:70% ;}
+
+
+
+
+.about details {
+  position: relative;
+}
+
+.about ul {
+  position: absolute;
+  bottom: calc(100% + 20px);  /* 20px 간격 */
+  left: 0;
+  text-align: left;
+  max-width: 280px;
+}
+
+.about details:not([open]) ul {
+  display: none;
+}
+
+
+
+
+/* 텍스트 위에 이미지 */
+.lee {
+  position: relative;
+  display: inline-block;
+}
+
+.lee::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120px;             
+  height: 120px;
+  transform: translate(-50%, -50%);
+  background-image: url("img/one1.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lee:hover::after{
+  opacity: 1;
+}
+
+.lee.fixed::after {
+  opacity: 1;
+}
+
+
+.about2{
+  position: relative;
+  display: inline-block;
+}
+
+.about2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120px;              /* img/line.png 비율에 맞게 조정 */
+  height: 120px;
+  transform: translate(-40%, -50%);
+  background-image: url("img/one2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* 기존 이거는 있어도 되는데(hover용), fixed는 아래로 통일 */
+.about2:hover::after { opacity: 1; }
+
+/*  About details 열렸을 때 고정 */
+.about.fixed .about2::after {
+  opacity: 1;
+}
+
+
+.web2{
+  position: relative;
+  display: inline-block;
+}
+
+
+.web2::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120px;
+  height: 110px;
+  transform: translate(-50%, -50%);
+  background-image: url("img/one7.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.web2:hover::after{
+  opacity: 1;
+}
+.web.fixed .web2::after {
+  opacity: 1;
+}
+
+
+
+.contact2{
+  position: relative;
+  display: inline-block;
+}
+
+
+.contact2::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140px;
+  height: 140px;
+  transform: translate(-40%, -50%);
+  background-image: url("img/one6.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contact2:hover::after{
+  opacity: 1;
+}
+.contact.fixed .contact2::after {
+  opacity: 1;
+}
+
+
+
+/* 웹사이트 설명 */
+ .tip{
+  position: absolute;
+  top: -100%;
+  left: 0%;                
+  transform: translateY(-50%);
+  margin-left: 0px;
+
+
+  width: 380px;
+  max-width: 380px;
+
+  
+  font-size: 13pt;
+  font-family: 'Monor', monospace;
+  line-height: 1.4;
+
+ 
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 50;
+
+  
+}
+
+/* 호버 시 표시 */
+.web-item:hover .tip{
+  opacity: 1;
+}
+
+
+/* 라인 사진 */
+.tip-img{
+  position: absolute;
+  left: -10px;
+  top: 50px;
+  height: auto;
+  width: 390px;
+}
+
+.tip-img2{
+  position: absolute;
+  left: -10px;
+  top: 65px;
+  height: auto;
+  width: 365px;
+}
+
+.tip-img3{
+  position: absolute;
+  left: -20px;
+  top: 55px;
+  height: auto;
+  width: 400px;
+}
+
+.tip-img4{
+  position: absolute;
+  left: 0;
+  top: 50px;
+  height: auto;
+  width: 385px;
+}
+
+.tip-img5{
+  position: absolute;
+  left: -10px;
+  top: 48px;
+  height: auto;
+  width: 378px;
+}
+
+.tip-img6{
+  position: absolute;
+  left: -10px;
+  top: -110px;
+  height: auto;
+  width: 90px;
+}
+
+.tip-img7{
+  position: absolute;
+  left: -10px;
+  top: -110px;
+  height: auto;
+  width: 25px;
+    animation: sweatLoop 2.5s linear infinite;
+}
+
+@keyframes sweatLoop {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+/* 이시현 설명 */
+.her {
+  position: absolute;
+  left: 26px;               
+  top: 90px;                
+  max-width: 500px;         /* 가로 폭 제한 */
+  z-index: 10;
+
+  font-family: 'Monor', monospace;   
+  line-height: 22px; 
+  font-size: 12pt; 
+
+  display: none;          
+}
+
+
+
+
+/* 베를린 설명 */
+nav { position: relative; z-index: 3; }
+
+/*  배경은 맨 아래 */
+.fullscreen-bg{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  background-size: cover;
+  background-position: center;
+  background-image: none;
+}
+
+/* berlin */
+body:has(.berlin:hover) .fullscreen-bg{
+  opacity: 1;
+  background-image: url("img/frame.png");
+}
+
+/* name11 */
+body:has(.name11:hover) .fullscreen-bg{
+  opacity: 1;
+  background-image: url("img/back.png");
+}
+
+/*  name11만 relative로 올리기 */
+.name11{
+  position: relative;
+  z-index: 5;
+}
+
+/* her는 absolute 유지 + z-index */
+.her{
+  position: absolute; /* 안전하게 명시 */
+  z-index: 10;
+}
+
+/*  footer는 fixed 유지 + z-index만 */
+.footer{
+  z-index: 5;  /* position: fixed는 기존 그대로 둬야 함 */
+}
+
+/* 스타일 설정 */
+details, ul{
+  overflow: visible;
+}
+summary {
+  list-style: none;
+  margin-bottom: 20px;
+}
 
 ul {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding-top: 0;
+ }
+
+li{padding-top: 3px;
+
 }
 
+a{
+  text-decoration: none;   /* 밑줄 제거 */
+  color: inherit;          
+}
+
+a:hover{
+  text-decoration: underline;  
+}
+
+
+
+nav > div { transition: opacity 0.25s ease; }
+
+.about ul {
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.about details[open] ul {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* 말퀴 */
+.top-marquee{
+  position: fixed;      
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 999;
+  padding: 6px 0;
+  font-size: 8pt;
+  font-family: 'Monor', monospace; 
+}
+
+.top-marquee__track{
+  display: inline-flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 120s linear infinite;
+  animation-delay: -15s; /* 페이지 들어와도 중간부터 시작 */
+}
+
+.top-marquee__inner{
+  display: inline-block;
+  padding-right: 5px;  /* 문장 사이 간격 */
+}
+
+/* 끊김 없는 무한 이동 */
+@keyframes marquee{
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* 모션 줄이기 설정 존중 */
+@media (prefers-reduced-motion: reduce){
+  .top-marquee__track{ animation: none; }
+}
+
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 16px;
+  
+  color: black;
+  text-align: center;
+  font-size: 8pt;
+  font-family: 'Monor', monospace; 
+
+}
 
 
 @media screen and (max-width: 704px) {
