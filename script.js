@@ -100,24 +100,22 @@ if (berlin && bg) {
 
     berlin.addEventListener('mouseleave', () => {
       bg.style.opacity = '0';
-      // 필요하면 bg.style.backgroundImage = 'none';
     });
   } else {
-    // 모바일: 탭으로 토글
+    // 모바일: 첫 탭은 프레임만, 두 번째 탭은 링크 이동
     let active = false;
 
     berlin.addEventListener('click', (e) => {
-      // 링크 바로 타지 않게 하고 싶으면 이 줄 유지
-      e.preventDefault();
-
-      active = !active;
-
-      if (active) {
+      if (!active) {
+        // 첫 번째 클릭: 기본 동작 막고, 프레임만 보여줌
+        e.preventDefault();
+        active = true;
         bg.style.opacity = '1';
         bg.style.backgroundImage = 'url("img/frame.png")';
       } else {
-        bg.style.opacity = '0';
-        // 필요하면 bg.style.backgroundImage = 'none';
+        // 두 번째 클릭: 기본 동작(링크 이동) 허용
+        active = false;
+        // bg.style.opacity = '0'; // 이동 전에 끄고 싶으면 사용
       }
     });
   }
