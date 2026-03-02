@@ -136,8 +136,8 @@ if (berlin && bg) {
 }
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  // ...여기 위에 네가 이미 쓰고 있는 코드들 그대로 두고
+
+
 
   // ===== 모바일 전용: about tip 한 번 클릭 시 열리고, 다음 클릭 시 링크 이동 =====
   const isTouchDevice =
@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-});
+
 
 
 
