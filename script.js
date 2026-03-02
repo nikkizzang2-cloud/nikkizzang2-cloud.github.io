@@ -47,7 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const updateNavOpacity = () => {
+
+   const updateNavOpacity = () => {
     containers.forEach(div => {
       div.style.opacity = "1";
     });
@@ -79,17 +80,51 @@ document.addEventListener("DOMContentLoaded", () => {
   updateNavOpacity();
 });
 
+
+// ===== 베를린 코드 =====
 const berlin = document.querySelector('.berlin');
 const bg = document.querySelector('.fullscreen-bg');
 
-berlin.addEventListener('mouseenter', () => {
-  bg.style.opacity = '1';
-  bg.style.backgroundImage = 'url("img/frame.png")';
-});
+if (berlin && bg) {
+  const isTouchDevice =
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0;
 
-berlin.addEventListener('mouseleave', () => {
-  bg.style.opacity = '0';
-});
+  if (!isTouchDevice) {
+    // PC: 기존 hover 유지
+    berlin.addEventListener('mouseenter', () => {
+      bg.style.opacity = '1';
+      bg.style.backgroundImage = 'url("img/frame.png")';
+    });
+
+    berlin.addEventListener('mouseleave', () => {
+      bg.style.opacity = '0';
+      // 필요하면 bg.style.backgroundImage = 'none';
+    });
+  } else {
+    // 모바일: 탭으로 토글
+    let active = false;
+
+    berlin.addEventListener('click', (e) => {
+      // 링크 바로 타지 않게 하고 싶으면 이 줄 유지
+      e.preventDefault();
+
+      active = !active;
+
+      if (active) {
+        bg.style.opacity = '1';
+        bg.style.backgroundImage = 'url("img/frame.png")';
+      } else {
+        bg.style.opacity = '0';
+        // 필요하면 bg.style.backgroundImage = 'none';
+      }
+    });
+  }
+}
+
+
+
 
 // ===== 여기부터 footer 토글 전용 코드 =====
 document.addEventListener("DOMContentLoaded", () => {

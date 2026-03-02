@@ -53,22 +53,24 @@ nav > div {
 
 
 
-.about details {
+.about details{
   position: relative;
 }
-
-.about ul {
+.about ul{
   position: absolute;
-  bottom: calc(100% + 20px);  /* 20px 간격 */
+  bottom: calc(100% + 20px);
   left: 0;
-  text-align: left;
   max-width: 280px;
+  text-align: left;
+
+  visibility: hidden;
+  pointer-events: none;
 }
 
-.about details:not([open]) ul {
-  display: none;
+.about details[open] ul{
+  visibility: visible;
+  pointer-events: auto;
 }
-
 
 
 
@@ -462,6 +464,195 @@ body.crayon-on .contact2::after {
   background-image: url("img/one62.png");
 }
 
-@media screen and (max-width: 704px) {
+
+
+
+
+@media screen and (max-width: 600px) {
   
+body {
+  font-family: 'Opening Hours Sans', sans-serif;
+  font-size: 10pt;
+  background-color: #f7f7f7;
+  
+} 
+nav {
+  margin-top: 450px;
+
+ }
+
+nav > div {
+  position: absolute;
+  width: 25%;
 }
+.name{left: 6%;}
+
+.web {left: 33.5%}
+
+.about {left: 57%;}
+
+.contact{left:75% ;}
+
+  
+
+
+.name11{ margin-left: 25px;
+  margin-top: 37px;
+  font-size: 15pt;
+
+}
+
+/* 이시현 설명 */
+.her {
+  position: absolute;
+  left: 26px;               
+  top: 78px;                
+  width: 350px;         /* 가로 폭 제한 */
+  z-index: 10;
+
+  font-family: 'Monor', monospace;   
+  line-height: 20px; 
+  font-size: 12pt; 
+
+  display: none;          
+}
+
+
+
+
+.about details{
+  position: relative;
+}
+.about ul{
+  position: absolute;
+  bottom: calc(100% + 25px);
+  left: -190px;
+  width: 230px;
+  text-align: right;
+
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.about details[open] ul{
+  visibility: visible;
+  pointer-events: auto;
+}
+
+
+
+
+
+.tip{
+  position: absolute;
+  top: -180%;
+  left: -90%;                
+  transform: translateY(0%);
+  margin-left: 0px;
+
+
+  width: 270px;
+  max-width: 270px;
+
+  
+  font-size: 12pt;
+  font-family: 'Monor', monospace;
+  line-height: 1.3;
+
+ 
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 50;}
+
+  
+  .lee::after {
+  width: 100px;             
+  height: 100px;
+  transform: translate(-50%, -50%);
+  }
+
+  .web2::after{
+  width: 100px;
+  height: 90px;
+ 
+}
+  .about2::after{
+  width: 100px;
+  height:100px;
+ 
+}
+ .contact2::after{
+  width: 109px;
+  height:118px;
+ 
+}
+
+ 
+
+
+
+
+
+
+
+  /* 라인 사진 */
+.tip-img{
+  position: absolute;
+  left: -10px;
+  top: 64px;
+  height: 34px;
+  width: 280px;
+}
+
+.tip-img2{
+  position: absolute;
+  left: -10px;
+  top: 58px;
+  height: 35;
+  width: 290px;
+}
+
+.tip-img3{
+  position: absolute;
+  left: -20px;
+  top: 64px;
+  height: 40;
+  width: 330px;
+}
+
+.tip-img4{
+  position: absolute;
+  left: -15px;
+  top: 75px;
+  height: 35;
+  width: 280px;
+}
+
+.tip-img5{
+  position: absolute;
+  left: -10px;
+  top: 45px;
+  height: 35;
+  width: 280px;
+}
+
+.tip-img6{
+  position: absolute;
+  left: 10px;
+  top: -110px;
+  height: auto;
+  width: 90px;
+}
+
+.tip-img7{
+  position: absolute;
+  left: 10px;
+  top: -110px;
+  height: auto;
+  width: 25px;
+    animation: sweatLoop 2.5s linear infinite;
+}
+
+ }
+
