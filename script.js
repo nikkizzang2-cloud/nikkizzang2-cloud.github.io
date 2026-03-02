@@ -80,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
   updateNavOpacity();
 });
 
-
 // ===== 베를린 코드 =====
 const berlin = document.querySelector('.berlin');
 const bg = document.querySelector('.fullscreen-bg');
@@ -118,8 +117,67 @@ if (berlin && bg) {
         // bg.style.opacity = '0'; // 이동 전에 끄고 싶으면 사용
       }
     });
+
+    // 🔻 여기 추가: 모바일에서 다른 곳 누르면 끄기
+    document.addEventListener('click', (e) => {
+      // 이미 비활성화 상태면 신경 안 씀
+      if (!active) return;
+
+      // berlin 요소를 누른 경우는 무시 (이미 위 핸들러에서 처리)
+      if (berlin.contains(e.target)) return;
+
+      // 그 외 아무 곳이나 누르면 끄기
+      active = false;
+      bg.style.opacity = '0';
+      // 필요하면 이미지도 제거
+      // bg.style.backgroundImage = 'none';
+    });
   }
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // ...여기 위에 네가 이미 쓰고 있는 코드들 그대로 두고
+
+  // ===== 모바일 전용: about tip 한 번 클릭 시 열리고, 다음 클릭 시 링크 이동 =====
+  const isTouchDevice =
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0;
+
+  if (isTouchDevice) {
+    // about 메뉴 안에 있는 각 tip 링크들을 잡는다고 가정
+    // 예: <div class="about"> 안에 <ul><li><a class="tip-link" href="...">...</a></li>...</ul>
+    const about = document.querySelector(".about");
+    if (about) {
+      const tipLinks = about.querySelectorAll("a"); // 필요하면 'a.tip-link' 처럼 더 좁혀도 됨
+
+      tipLinks.forEach(link => {
+        let firstTapDone = false;
+
+        link.addEventListener("click", (e) => {
+          const details = link.closest("details");
+
+          // details가 없으면(그냥 링크라면) 기본 동작
+          if (!details) return;
+
+          if (!firstTapDone) {
+            // 첫 번째 탭: 기본동작 막고 tip 열기
+            e.preventDefault();
+            firstTapDone = true;
+            details.open = true;
+          } else {
+            // 두 번째 탭: 링크 이동 허용 + 상태 리셋
+            firstTapDone = false;
+            // 여기서는 e.preventDefault() 안 걸어서, 브라우저가 href로 이동
+          }
+        });
+      });
+    }
+  }
+});
+
+
 
 
 
