@@ -1,3 +1,6 @@
+// ===================================
+// 공통: 네비 opacity / her 토글
+// ===================================
 document.addEventListener("DOMContentLoaded", () => {
   const containers = document.querySelectorAll("nav > div");
   const web = document.querySelector(".web");
@@ -26,20 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
   attachDetailsFixed(about, about);
   attachDetailsFixed(contact, contact);
 
-  // ✅ lee: her 상태에 맞춰 fixed 제어 + opacity 업데이트
+  // lee 클릭 → her 토글 + fixed 제어
   if (lee && her && nameBox) {
     lee.addEventListener("click", () => {
       const isHidden = getComputedStyle(her).display === "none";
 
-      // 1) her 토글
       her.style.display = isHidden ? "block" : "none";
 
-      // 2) her가 보일 때만 이미지 고정, 숨길 때는 해제
       if (isHidden) {
-        // 지금까지는 숨겨져 있었으니까 → 이제 보이게 됨
         lee.classList.add("fixed");
       } else {
-        // 지금까지는 보이고 있었으니까 → 이제 숨김
         lee.classList.remove("fixed");
       }
 
@@ -47,8 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
-   const updateNavOpacity = () => {
+  const updateNavOpacity = () => {
     containers.forEach(div => {
       div.style.opacity = "1";
     });
@@ -56,8 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const openWeb = web?.querySelector("details")?.open;
     const openAbout = about?.querySelector("details")?.open;
     const openContact = contact?.querySelector("details")?.open;
-
-    // ✅ her가 보이는 상태도 active로 취급
     const herVisible = her && getComputedStyle(her).display !== "none";
 
     if (!openWeb && !openAbout && !openContact && !herVisible) return;
@@ -80,109 +76,96 @@ document.addEventListener("DOMContentLoaded", () => {
   updateNavOpacity();
 });
 
-// ===== 베를린 코드 =====
-const berlin = document.querySelector('.berlin');
-const bg = document.querySelector('.fullscreen-bg');
+// ===================================
+// 공통: 터치 디바이스 판별
+// ===================================
+const isTouchDevice =
+  "ontouchstart" in window ||
+  navigator.maxTouchPoints > 0 ||
+  navigator.msMaxTouchPoints > 0;
 
-if (berlin && bg) {
-  const isTouchDevice =
-    'ontouchstart' in window ||
-    navigator.maxTouchPoints > 0 ||
-    navigator.msMaxTouchPoints > 0;
+// ===================================
+// 베를린 코드 (PC: hover / 모바일: 1탭 프레임, 2탭 링크)
+// ===================================
+(() => {
+  const berlin = document.querySelector(".berlin");
+  const bg = document.querySelector(".fullscreen-bg");
+  if (!berlin || !bg) return;
 
   if (!isTouchDevice) {
-    // PC: 기존 hover 유지
-    berlin.addEventListener('mouseenter', () => {
-      bg.style.opacity = '1';
+    // PC: hover
+    berlin.addEventListener("mouseenter", () => {
+      bg.style.opacity = "1";
       bg.style.backgroundImage = 'url("img/frame.png")';
     });
 
-    berlin.addEventListener('mouseleave', () => {
-      bg.style.opacity = '0';
+    berlin.addEventListener("mouseleave", () => {
+      bg.style.opacity = "0";
     });
   } else {
-    // 모바일: 첫 탭은 프레임만, 두 번째 탭은 링크 이동
+    // 모바일: 1번 탭 프레임, 2번 탭 링크
     let active = false;
 
-    berlin.addEventListener('click', (e) => {
+    berlin.addEventListener("click", (e) => {
       if (!active) {
-        // 첫 번째 클릭: 기본 동작 막고, 프레임만 보여줌
+        // 첫 클릭: 프레임만 켜고 링크 막기
         e.preventDefault();
         active = true;
-        bg.style.opacity = '1';
+        bg.style.opacity = "1";
         bg.style.backgroundImage = 'url("img/frame.png")';
       } else {
-        // 두 번째 클릭: 기본 동작(링크 이동) 허용
+        // 두 번째 클릭: 링크로 이동 (기본 동작 허용)
         active = false;
-        // bg.style.opacity = '0'; // 이동 전에 끄고 싶으면 사용
       }
     });
 
-    // 🔻 여기 추가: 모바일에서 다른 곳 누르면 끄기
-    document.addEventListener('click', (e) => {
-      // 이미 비활성화 상태면 신경 안 씀
+    // 모바일에서 베를린 말고 다른 곳 누르면 프레임 끄기
+    document.addEventListener("click", (e) => {
       if (!active) return;
-
-      // berlin 요소를 누른 경우는 무시 (이미 위 핸들러에서 처리)
       if (berlin.contains(e.target)) return;
 
-      // 그 외 아무 곳이나 누르면 끄기
       active = false;
-      bg.style.opacity = '0';
-      // 필요하면 이미지도 제거
-      // bg.style.backgroundImage = 'none';
+      bg.style.opacity = "0";
+      // 필요하면 bg.style.backgroundImage = "none";
     });
   }
-}
+})();
 
+// ===================================
+// 모바일: about tip 링크도
+// 1번 탭 → tip 열기, 2번 탭 → 링크 이동
+// ===================================
+(() => {
+  if (!isTouchDevice) return;
 
+  const about = document.querySelector(".about");
+  if (!about) return;
 
+  // 필요하면 셀렉터를 더 좁혀도 됨 (예: "ul li a" 또는 "a.tip-link")
+  const tipLinks = about.querySelectorAll("a");
+  tipLinks.forEach(link => {
+    let firstTapDone = false;
 
+    link.addEventListener("click", (e) => {
+      const details = link.closest("details");
+      if (!details) return;
 
-  // ===== 모바일 전용: about tip 한 번 클릭 시 열리고, 다음 클릭 시 링크 이동 =====
-  const isTouchDevice =
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    navigator.msMaxTouchPoints > 0;
+      if (!firstTapDone) {
+        // 첫 번째 탭: tip 열기만
+        e.preventDefault();
+        firstTapDone = true;
+        details.open = true;
+      } else {
+        // 두 번째 탭: 링크 이동 허용
+        firstTapDone = false;
+      }
+    });
+  });
+})();
 
-  if (isTouchDevice) {
-    // about 메뉴 안에 있는 각 tip 링크들을 잡는다고 가정
-    // 예: <div class="about"> 안에 <ul><li><a class="tip-link" href="...">...</a></li>...</ul>
-    const about = document.querySelector(".about");
-    if (about) {
-      const tipLinks = about.querySelectorAll("a"); // 필요하면 'a.tip-link' 처럼 더 좁혀도 됨
-
-      tipLinks.forEach(link => {
-        let firstTapDone = false;
-
-        link.addEventListener("click", (e) => {
-          const details = link.closest("details");
-
-          // details가 없으면(그냥 링크라면) 기본 동작
-          if (!details) return;
-
-          if (!firstTapDone) {
-            // 첫 번째 탭: 기본동작 막고 tip 열기
-            e.preventDefault();
-            firstTapDone = true;
-            details.open = true;
-          } else {
-            // 두 번째 탭: 링크 이동 허용 + 상태 리셋
-            firstTapDone = false;
-            // 여기서는 e.preventDefault() 안 걸어서, 브라우저가 href로 이동
-          }
-        });
-      });
-    }
-  }
-
-
-
-
-
-
-
-// ===== 여기부터 footer 토글 전용 코드 =====
+// ===================================
+// footer 토글 (색 / 이미지 / crayon-on 클래스 / 배경)
+// ===================================
 document.addEventListener("DOMContentLoaded", () => {
   const footer = document.querySelector(".footer");
   const name11 = document.querySelector(".name11");
@@ -263,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stroke4.src = originalStroke4;
       stroke5.src = originalStroke5;
 
-      // 4) ::after 이미지용 클래스 제거 → CSS 기본값으로 복귀
+      // 4) ::after 이미지용 클래스 제거
       document.body.classList.remove("crayon-on");
 
       // 5) 배경 초기화
@@ -291,9 +274,3 @@ document.addEventListener("DOMContentLoaded", () => {
     fullscreenBg.style.backgroundImage = "none";
   });
 });
-
-
-
-
-
-
