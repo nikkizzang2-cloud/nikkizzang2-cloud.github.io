@@ -135,33 +135,39 @@ const isTouchDevice =
 // 모바일: about tip 링크도
 // 1번 탭 → tip 열기, 2번 탭 → 링크 이동
 // ===================================
-(() => {
+
+  (() => {
   if (!isTouchDevice) return;
 
   const about = document.querySelector(".about");
   if (!about) return;
 
-  // 필요하면 셀렉터를 더 좁혀도 됨 (예: "ul li a" 또는 "a.tip-link")
   const tipLinks = about.querySelectorAll("a");
   tipLinks.forEach(link => {
     let firstTapDone = false;
 
+    // 실제 동작은 click 쪽에서 제어
     link.addEventListener("click", (e) => {
       const details = link.closest("details");
       if (!details) return;
 
       if (!firstTapDone) {
-        // 첫 번째 탭: tip 열기만
-        e.preventDefault();
+        e.preventDefault();      // 첫 탭: 이동 막기
         firstTapDone = true;
-        details.open = true;
+        details.open = true;     // tip 열기
       } else {
-        // 두 번째 탭: 링크 이동 허용
-        firstTapDone = false;
+        firstTapDone = false;    // 두 번째 탭: 링크 이동 허용
       }
+    });
+
+    // option: 터치/포인터 들어왔을 때 firstTapDone 초기화하고 싶으면
+    link.addEventListener("pointerdown", () => {
+      // 여기서는 preventDefault 안 함 (의미 없어서)
+      // 필요 없으면 이 핸들러 자체를 빼도 됨
     });
   });
 })();
+
 
 // ===================================
 // footer 토글 (색 / 이미지 / crayon-on 클래스 / 배경)

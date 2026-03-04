@@ -473,7 +473,7 @@ body.crayon-on .contact2::after {
 body {
   font-family: 'Opening Hours Sans', sans-serif;
   font-size: 10pt;
-  background-color: aliceblue;
+  background-color: #f7f7f7;
   
 } 
 nav {
@@ -639,18 +639,18 @@ nav > div {
 
 .tip-img6{
   position: absolute;
-  left: 10px;
-  top: -110px;
+  left: 5px;
+  top: 80px;
   height: auto;
-  width: 90px;
+  width: 85px;
 }
 
 .tip-img7{
   position: absolute;
-  left: 10px;
-  top: -110px;
+  left: 5px;
+  top: 80px;
   height: auto;
-  width: 25px;
+  width: 20px;
     animation: sweatLoop 2.5s linear infinite;
 }
 
